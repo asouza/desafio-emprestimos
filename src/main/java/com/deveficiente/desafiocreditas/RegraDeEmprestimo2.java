@@ -21,6 +21,7 @@ public class RegraDeEmprestimo2 implements AnalisaCombinacao {
 
 	@Override
 	public boolean aceita(@Valid NovoClienteRequest request) {
+		//4
 		return request.salarioMenorIgual(3000)
 				&& request.ehDeSaoPaulo()
 				&& request.idadeMenorDoQue(30);
