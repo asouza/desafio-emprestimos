@@ -1,5 +1,6 @@
 package com.deveficiente.desafiocreditas;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -21,20 +22,19 @@ public class AnalisadorDeEmprestimos {
 			@Valid NovoClienteRequest request) {
 		
 
-		Set<AnalisaCombinacao> aceites = analisadoresCombinacao
+		Set<PossibilidadeEmprestimoResponse> possibilidades = analisadoresCombinacao
 				.stream()
 				//1
-				.filter(analisador -> analisador.aceita(request))
+				.map(analisador -> analisador.aceita(request))
+				.filter(Optional :: isPresent)
+				.map(Optional :: get)
 				.collect(Collectors.toSet());
 		
-		//1
-		if(aceites.isEmpty()) {
+		if(possibilidades.isEmpty()) {
 			return Set.of();
 		}
 		
-		Assert.state(aceites.size() == 1,"Achou mais de uma combinacao possível");
-		
-		return aceites.iterator().next().possibilidades(request);
+		return possibilidades;
 		
 		
 	}

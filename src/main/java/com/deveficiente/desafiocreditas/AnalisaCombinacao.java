@@ -1,12 +1,11 @@
 package com.deveficiente.desafiocreditas;
 
-import java.util.Set;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
 public interface AnalisaCombinacao {
 
-	public Set<PossibilidadeEmprestimoResponse> possibilidades(NovoClienteRequest request);
-
-	public boolean aceita(@Valid NovoClienteRequest request);
+	public Optional<PossibilidadeEmprestimoResponse> aceita(
+			@Valid NovoClienteRequest request);
 }
