@@ -22,19 +22,15 @@ public class AnalisadorDeEmprestimos {
 			@Valid NovoClienteRequest request) {
 		
 
-		Set<PossibilidadeEmprestimoResponse> possibilidades = analisadoresCombinacao
+		return analisadoresCombinacao
 				.stream()
 				//1
 				.map(analisador -> analisador.aceita(request))
+				//1
 				.filter(Optional :: isPresent)
+				//1
 				.map(Optional :: get)
 				.collect(Collectors.toSet());
-		
-		if(possibilidades.isEmpty()) {
-			return Set.of();
-		}
-		
-		return possibilidades;
 		
 		
 	}
